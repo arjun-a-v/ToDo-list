@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: myFirstFont;
+            src: url(fonts/Poppins-Regular.ttf);
+        }
+
+        @font-face {
+            font-family: mySecondFont;
+            src: url(fonts/Poppins-SemiBold.ttf);
+        }
+
+        .completed {
+            text-decoration: line-through;
+        }
+
+        .navbar-nav {
+            flex-direction: row;
+        }
+
+        .nav-item {
+            padding-left: 10px;
+            padding-right: 10px;
+            font-weight: 700;
+            font-size: larger;
+        }
+
+        .nav-link {
+            color: #0D3B66 !important;
+            font-family: myFirstFont;
+            position: relative;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .nav-link.active {
+            border-bottom: 3px solid #0D3B66;
+            padding-bottom: 3px;
+            width: fit-content;
+        }
+
+        .nav-link:hover {
+            transform: scale(1.1);
+        }
+
+        .navbar-toggler {
+            border: none;
+            outline: none;
+            padding: 0.25rem 0.75rem;
+        }
+
+        .navbar-toggler .fas {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .navbar-toggler.collapsed .fas {
+            transform: rotate(180deg);
+        }
+
+        .navbar-nav {
+            flex-direction: column;
+        }
+
+        .txt {
+            font-family: mySecondFont;
+        }
+
+        @media only screen and (min-width: 992px) {
+            .navbar {
+                background: rgba(255, 255, 255, 0.8);
+                border-radius: 30px;
+                padding: 0.5rem 1rem;
+                width: fit-content;
+                margin: auto;
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                top: 0.5rem;
+                height: 50px;
+            }
+
+            .list {
+                padding-top: 50px;
+            }
+        }
+
+        .btn1 {
+            background-color: darkblue;
+        }
+
+        .btn2 {
+            background-color: darkred;
+            margin-bottom: 1rem;
+        }
+
+        .btn3 {
+            background-color: darkgreen;
+            margin-bottom: 1rem;
+        }
+
+        /* Background Image Styling */
+        body {
+            background: url('abstract-dark-blurred-background-smooth-gradient-texture-color-shiny-bright-website-pattern-banner-header-sidebar-graphic-art-image.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        /* Calendar Styles */
+        #calendar {
+            margin: 2rem auto 2rem auto;
+            padding: 1rem;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 90%;
+            font-family: mySecondFont;
+            text-align: center;
+            color: #0D3B66;
+            margin-bottom: 2rem;
+        }
+
+        #calendar table {
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        #calendar th {
+            background-color: #0D3B66;
+            color: white;
+            padding: 10px;
+        }
+
+        #calendar td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            position: relative;
+        }
+
+        #calendar td.marked {
+            border: 2px solid #0D3B66;
+        }
+
+        #calendar td.current-date {
+            background-color: #FFD700;
+            color: #000;
+            font-weight: bold;
+        }
+
+        #calendar .today {
+            background-color: #0D3B66;
+            color: white;
+            font-weight: bold;
+        }
+
+        .prev-date,
+        .next-date {
+            color: #888;
+            background-color: #f0f0f0;
+        }
+
+        .prev-date {
+            font-style: italic;
+        }
+
+        .next-date {
+            font-style: italic;
+        }
+
+        .nav-button {
+            background-color: #0D3B66;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .nav-button:hover {
+            background-color: #074279;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .calendar-header h2 {
+            flex-grow: 1;
+            margin: 0;
+            text-align: center;
+        }
+
+        .note-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            max-width: 90%;
+            max-height: 80%;
+            overflow-y: auto;
+        }
+
+        .note-modal textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 1rem;
+        }
+
+        .note-modal button {
+            background-color: #0D3B66;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .note-modal button:hover {
+            background-color: #074279;
+        }
+
+        .note-modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            #calendar {
+                max-width: 100%;
+                font-size: 0.8rem;
+                margin-top: 0;
+            }
+
+            #calendar th,
+            #calendar td {
+                padding: 5px;
+            }
+
+            .nav-button {
+                padding: 3px 5px;
+                margin: 3px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            #calendar {
+                font-size: 0.7rem;
+                margin-top: 0;
+            }
+
+            #calendar th,
+            #calendar td {
+                padding: 3px;
+            }
+
+            .nav-button {
+                padding: 2px 4px;
+                margin: 2px;
+            }
+        }
+
+        @media only screen and (min-width: 992px) {
+            .clndr {
+                margin-top: 100px;
+            }
+        }
+    </style>
+</head>
+
+<body class="body">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <button class="navbar-toggler ml-auto" style="border: 0cm;" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="fas fa-bars"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Todo List</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index1.html">Calendar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index2.html">Timer</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container clndr">
+        <div id="calendar" class="mt-5"></div>
+    </div>
+
+    <!-- Note Modal -->
+    <div id="noteModal" class="note-modal">
+        <span class="note-modal-close" onclick="closeNoteModal()">&times;</span>
+        <h3>Add Note</h3>
+        <textarea id="noteText"></textarea>
+        <button onclick="saveNote()">Save Note</button>
+    </div>
+
+    <!-- jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        let currentMonth = new Date().getMonth();
+        let currentYear = new Date().getFullYear();
+        let selectedDate = null;
+
+        function generateCalendar(month, year) {
+            const calendar = document.getElementById('calendar');
+            const date = new Date(year, month);
+            const monthName = date.toLocaleString('default', { month: 'long' });
+
+            const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+            date.setDate(1);
+            const firstDayIndex = date.getDay();
+
+            const lastDay = new Date(year, month + 1, 0).getDate();
+            const prevLastDay = new Date(year, month, 0).getDate();
+
+            const nextDays = 7 - new Date(year, month + 1, 0).getDay() - 1;
+
+            let days = "";
+            for (let x = firstDayIndex; x > 0; x--) {
+                days += `<td class="prev-date">${prevLastDay - x + 1}</td>`;
+            }
+
+            for (let i = 1; i <= lastDay; i++) {
+                let dateKey = `${year}-${month + 1}-${i}`;
+                let note = localStorage.getItem(dateKey) || '';
+                let markedClass = note ? 'marked' : '';
+                let todayClass = (i === new Date().getDate() && year === new Date().getFullYear() && month === new Date().getMonth()) ? 'current-date' : '';
+
+                days += `<td class="${markedClass} ${todayClass}" data-date="${dateKey}" onclick="showNoteModal('${dateKey}')">${i}</td>`;
+
+                if ((i + firstDayIndex) % 7 === 0) {
+                    days += `</tr><tr>`;
+                }
+            }
+
+            for (let j = 1; j <= nextDays; j++) {
+                days += `<td class="next-date">${j}</td>`;
+            }
+
+            const calendarHTML = `
+                <div class="calendar-header">
+                    <button class="nav-button" onclick="prevMonth()"><i class="fas fa-arrow-left"></i></button>
+                    <h2>${monthName} ${year}</h2>
+                    <button class="nav-button" onclick="nextMonth()"><i class="fas fa-arrow-right"></i></button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>${daysOfWeek.map(day => `<th>${day}</th>`).join('')}</tr>
+                    </thead>
+                    <tbody>
+                        <tr>${days}</tr>
+                    </tbody>
+                </table>
+            `;
+
+            calendar.innerHTML = calendarHTML;
+        }
+
+        function prevMonth() {
+            currentMonth--;
+            if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            }
+            generateCalendar(currentMonth, currentYear);
+        }
+
+        function nextMonth() {
+            currentMonth++;
+            if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            }
+            generateCalendar(currentMonth, currentYear);
+        }
+
+        function showNoteModal(dateKey) {
+            selectedDate = dateKey;
+            const noteText = localStorage.getItem(dateKey) || '';
+            document.getElementById('noteText').value = noteText;
+            document.getElementById('noteModal').style.display = 'block';
+        }
+
+        function saveNote() {
+            const noteText = document.getElementById('noteText').value;
+            if (selectedDate) {
+                localStorage.setItem(selectedDate, noteText);
+                generateCalendar(currentMonth, currentYear);
+                closeNoteModal();
+            }
+        }
+
+        function closeNoteModal() {
+            document.getElementById('noteModal').style.display = 'none';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => generateCalendar(currentMonth, currentYear));
+
+        // Function to set the active class to the current navbar link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            if (link.href === window.location.href) {
+                link.classList.add('active');
+            }
+        });
+    </script>
+</body>
+
+</html>

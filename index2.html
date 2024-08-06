@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: myFirstFont;
+            src: url(fonts/Poppins-Regular.ttf);
+        }
+
+        @font-face {
+            font-family: mySecondFont;
+            src: url(fonts/Poppins-SemiBold.ttf);
+        }
+
+        .completed {
+            text-decoration: line-through;
+        }
+
+        .navbar-nav {
+            flex-direction: row;
+        }
+
+        .nav-item {
+            padding-left: 10px;
+            padding-right: 10px;
+            font-weight: 700;
+            font-size: larger;
+        }
+
+        .nav-link {
+            color: #0D3B66 !important;
+            font-family: myFirstFont;
+            position: relative;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .nav-link.active {
+            border-bottom: 3px solid #0D3B66;
+            padding-bottom: 3px;
+            width: fit-content;
+        }
+
+        .nav-link:hover {
+            transform: scale(1.1);
+        }
+
+        .navbar-toggler {
+            border: none;
+            outline: none;
+            padding: 0.25rem 0.75rem;
+        }
+
+        .navbar-toggler .fas {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .navbar-toggler.collapsed .fas {
+            transform: rotate(180deg);
+        }
+
+        .navbar-nav {
+            flex-direction: column;
+        }
+
+        .txt {
+            font-family: mySecondFont;
+        }
+
+        @media only screen and (min-width: 992px) {
+            .navbar {
+                background: rgba(255, 255, 255, 0.8);
+                border-radius: 30px;
+                padding: 0.5rem 1rem;
+                width: fit-content;
+                margin: auto;
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                top: 0.5rem;
+                height: 50px;
+            }
+            .body {
+                padding-top: 100px;
+            }
+        }
+
+        /* Background Image Styling */
+        body {
+            background: url('abstract-dark-blurred-background-smooth-gradient-texture-color-shiny-bright-website-pattern-banner-header-sidebar-graphic-art-image.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .clock,
+        .stopwatch {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 300px;
+            font-family: mySecondFont;
+            color: #0D3B66;
+        }
+
+        .clock {
+            font-size: 2rem;
+        }
+
+        .stopwatch {
+            text-align: center;
+        }
+
+        .stopwatch-display {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .stopwatch-button {
+            background-color: #0D3B66;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 1rem;
+        }
+
+        .stopwatch-button:hover {
+            background-color: #074279;
+        }
+
+        .stopwatch-button:disabled {
+            background-color: #888;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 768px) {
+            .clock,
+            .stopwatch {
+                max-width: 100%;
+                font-size: 1.5rem;
+            }
+
+            .stopwatch-button {
+                padding: 8px;
+                margin: 3px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .clock,
+            .stopwatch {
+                font-size: 1.2rem;
+            }
+
+            .stopwatch-button {
+                padding: 6px;
+                margin: 2px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body class="body">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <button class="navbar-toggler ml-auto" style="border: 0cm;" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="fas fa-bars"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Todo List</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="index1.html">Calendar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index2.html">Timer</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container text-center mt-5">
+        <div id="clock" class="clock"></div>
+        <button id="toggle-format" class="stopwatch-button">Switch to 12-Hour</button>
+        <div id="stopwatch" class="stopwatch">
+            <div id="stopwatch-display" class="stopwatch-display">00:00:000</div>
+            <button id="start-stopwatch" class="stopwatch-button">Start</button>
+            <button id="stop-stopwatch" class="stopwatch-button" disabled>Stop</button>
+            <button id="reset-stopwatch" class="stopwatch-button" disabled>Reset</button>
+        </div>
+    </div>
+
+    <!-- jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        let is12HourFormat = false; // Default to 24-hour format
+
+        // Clock functionality
+        function updateClock() {
+            const now = new Date();
+            let hours = now.getHours();
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+
+            if (is12HourFormat) {
+                const period = hours >= 12 ? 'PM' : 'AM';
+                hours = hours % 12 || 12;
+                document.getElementById('clock').textContent = `${String(hours).padStart(2, '0')}:${minutes}:${seconds} ${period}`;
+            } else {
+                document.getElementById('clock').textContent = `${String(hours).padStart(2, '0')}:${minutes}:${seconds}`;
+            }
+        }
+        
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Toggle between 12-hour and 24-hour format
+        document.getElementById('toggle-format').addEventListener('click', () => {
+            is12HourFormat = !is12HourFormat;
+            document.getElementById('toggle-format').textContent = is12HourFormat ? 'Switch to 24-Hour' : 'Switch to 12-Hour';
+            updateClock();
+        });
+
+        // Stopwatch functionality
+        let stopwatchInterval;
+        let stopwatchTime = 0; // Time in milliseconds
+
+        function formatTime(milliseconds) {
+            const hours = String(Math.floor(milliseconds / (1000 * 60 * 60))).padStart(2, '0');
+            const minutes = String(Math.floor((milliseconds % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+            const seconds = String(Math.floor((milliseconds % (1000 * 60)) / 1000)).padStart(2, '0');
+            const ms = String(milliseconds % 1000).padStart(3, '0').slice(0, 2); // Only show the first two digits of milliseconds
+            return `${hours}:${minutes}:${seconds}:${ms}`;
+        }
+
+        function updateStopwatch() {
+            document.getElementById('stopwatch-display').textContent = formatTime(stopwatchTime);
+            stopwatchTime += 100; // Increment by 100 milliseconds
+        }
+
+        document.getElementById('start-stopwatch').addEventListener('click', () => {
+            if (!stopwatchInterval) {
+                stopwatchInterval = setInterval(updateStopwatch, 100); // Update every 100 milliseconds
+                document.getElementById('start-stopwatch').disabled = true;
+                document.getElementById('stop-stopwatch').disabled = false;
+                document.getElementById('reset-stopwatch').disabled = false;
+            }
+        });
+
+        document.getElementById('stop-stopwatch').addEventListener('click', () => {
+            clearInterval(stopwatchInterval);
+            stopwatchInterval = null;
+            document.getElementById('start-stopwatch').disabled = false;
+            document.getElementById('stop-stopwatch').disabled = true;
+        });
+
+        document.getElementById('reset-stopwatch').addEventListener('click', () => {
+            clearInterval(stopwatchInterval);
+            stopwatchInterval = null;
+            stopwatchTime = 0;
+            document.getElementById('stopwatch-display').textContent = formatTime(stopwatchTime);
+            document.getElementById('start-stopwatch').disabled = false;
+            document.getElementById('stop-stopwatch').disabled = true;
+            document.getElementById('reset-stopwatch').disabled = true;
+        });
+    </script>
+</body>
+
+</html>
