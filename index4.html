@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: myFirstFont;
+            src: url('fonts/Poppins-Regular.ttf');
+        }
+
+        @font-face {
+            font-family: mySecondFont;
+            src: url('fonts/Poppins-SemiBold.ttf');
+        }
+
+        
+        .navbar-nav {
+            flex-direction: row;
+        }
+
+        .nav-item {
+            padding-left: 10px;
+            padding-right: 10px;
+            font-weight: 700;
+            font-size: larger;
+        }
+
+        .nav-link {
+            color: #537d19 !important;
+            font-family: myFirstFont;
+            position: relative;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .nav-link.active {
+            border-bottom: 3px solid #537d19;
+            padding-bottom: 2px;
+            width: fit-content;
+        }
+
+        .nav-link:hover {
+            transform: scale(1.1);
+        }
+
+        .navbar-toggler {
+            border: none;
+            outline: none;
+            padding: 0.25rem 0.75rem;
+        }
+
+        .navbar-toggler .fas {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .navbar-toggler.collapsed .fas {
+            transform: rotate(180deg);
+        }
+
+        .navbar-nav {
+            flex-direction: column;
+        }
+
+        .txt {
+            font-family: mySecondFont;
+        }
+
+        @media only screen and (min-width: 992px) {
+            .navbar {
+                background: rgba(255, 255, 255, 0.6);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                border-radius: 30px;
+                padding: 0.5rem 1rem;
+                width: fit-content;
+                margin: auto;
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                top: 0.5rem;
+                height: 50px;
+            }
+
+            .list {
+                padding-top: 50px;
+            }
+        }
+
+        /* Background Image Styling */
+        body {
+            background: url('image/luxury-plain-green-gradient-abstract-studio-background-empty-room-with-space-your-text-picture.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        /* Gallery Styles */
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            padding: 2rem;
+            margin-top: 80px;
+        }
+
+        .gallery img {
+            width: 300px;
+            height: 200px;
+            object-fit: cover;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 80vh;
+            object-fit: contain;
+            background-color: transparent;
+            border: none;
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <button class="navbar-toggler ml-auto" style="border: 0cm;" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="fas fa-bars"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">To-Do</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index3.html">Books</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index1.html">Calendar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index2.html">Timer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index4.html">Gallery</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container clndr">
+        <div class="gallery">
+            <img src="image/IMG-20240808-WA0005.jpg" alt="" onclick="openModal(this)">
+            <img src="image/IMG-20240808-WA0007.jpg" alt="" onclick="openModal(this)">
+            <img src="image/IMG-20240808-WA0008.jpg" alt="" onclick="openModal(this)">
+            <img src="image/IMG-20240808-WA0009.jpg" alt="" onclick="openModal(this)">
+            <img src="image/IMG-20240808-WA0010.jpg" alt="" onclick="openModal(this)">
+            <img src="image/IMG-20240808-WA0011.jpg" alt="" onclick="openModal(this)">
+            <img src="image/IMG-20240808-WA0012.jpg" alt="" onclick="openModal(this)">
+            <img src="image/IMG-20240808-WA0013.jpg" alt="" onclick="openModal(this)">
+            <img src="image/IMG-20240808-WA0014.jpg" alt="" onclick="openModal(this)">
+            <img src="image/IMG-20240808-WA0015.jpg" alt="" onclick="openModal(this)">
+            <img src="image/IMG-20240808-WA0019.jpg" alt="" onclick="openModal(this)">
+            <img src="image/IMG-20240808-WA0016.jpg" alt="" onclick="openModal(this)">
+            <img src="image/IMG-20240808-WA0017.jpg" alt="" onclick="openModal(this)">
+            <img src="image/IMG-20240808-WA0018.jpg" alt="" onclick="openModal(this)">
+            <img src="image/IMG-20240808-WA0020.jpg" alt="" onclick="openModal(this)">
+            <img src="image/IMG-20240808-WA0021.jpg" alt="" onclick="openModal(this)">
+            <img src="image/IMG-20240808-WA0022.jpg" alt="" onclick="openModal(this)">
+            <img src="image/IMG-20240808-WA0023.jpg" alt="" onclick="openModal(this)">
+
+            <!-- Add more images as needed -->
+        </div>
+    </div>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="img01">
+        <div id="caption"></div>
+    </div>
+
+    <!-- jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        function openModal(img) {
+            const modal = document.getElementById("myModal");
+            const modalImg = document.getElementById("img01");
+
+            modal.style.display = "flex";
+            modalImg.src = img.src;
+            document.getElementById("caption").innerHTML = img.alt;
+        }
+
+        function closeModal() {
+            const modal = document.getElementById("myModal");
+            modal.style.display = "none";
+        }
+
+        // Set the active class to the current navbar link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            if (link.href === window.location.href) {
+                link.classList.add('active');
+            }
+        });
+    </script>
+</body>
+
+</html>
