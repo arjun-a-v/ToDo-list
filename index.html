@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todo List</title>
+    <title>To-Do List</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- FontAwesome CSS -->
@@ -14,64 +14,140 @@
             font-family: myFirstFont;
             src: url(fonts/Poppins-Regular.ttf);
         }
+
         @font-face {
             font-family: mySecondFont;
             src: url(fonts/Poppins-SemiBold.ttf);
         }
+
         .completed {
             text-decoration: line-through;
         }
+
         .navbar-nav {
             flex-direction: row;
         }
+
         .nav-item {
             padding-left: 10px;
             padding-right: 10px;
             font-weight: 700;
             font-size: larger;
         }
+
         .nav-link {
-            color: #0D3B66 !important;
+            color: #537d19 !important;
             font-family: myFirstFont;
-            position: relative; /* Ensure positioning for the underline */
+            position: relative;
             transition: color 0.3s ease, transform 0.3s ease;
         }
+
         .nav-link.active {
-            border-bottom: 3px solid #0D3B66; /* Adjust color and thickness as needed */
-            padding-bottom: 3px; /* Add space between text and underline */
+            border-bottom: 3px solid #537d19;
+            padding-bottom: 2px;
             width: fit-content;
         }
+
         .nav-link:hover {
             transform: scale(1.1);
         }
+
         .navbar-toggler {
             border: none;
             outline: none;
             padding: 0.25rem 0.75rem;
         }
+
         .navbar-toggler .fas {
             transition: transform 0.3s ease-in-out;
         }
+
         .navbar-toggler.collapsed .fas {
             transform: rotate(180deg);
         }
+
         .navbar-nav {
             flex-direction: column;
         }
+
         .nav-item {
             padding: 5px;
         }
+
         body {
-            background: url('abstract-dark-blurred-background-smooth-gradient-texture-color-shiny-bright-website-pattern-banner-header-sidebar-graphic-art-image.jpg') no-repeat center center fixed;
+            background: url('image/luxury-plain-green-gradient-abstract-studio-background-empty-room-with-space-your-text-picture.jpg') no-repeat center center fixed;
             background-size: cover;
         }
+
         .txt {
             font-family: mySecondFont;
-            color: #0D3B66;
+            color: darkgreen;
         }
+
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 10px;
+            padding: 20px;
+            color: darkgreen;
+            font-family: mySecondFont;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .form-control {
+            border: 0;
+            border-radius: 10px 0 0 10px;
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        .input-group-append .btn {
+            border-radius: 0 10px 10px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .list-group-item {
+            margin-bottom: 10px;
+            cursor: pointer; /* Indicates that the item can be moved */
+        }
+
+        .list-group-item.glass-effect {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .list-group-item .btn-group {
+            margin-left: auto;
+        }
+
+        .btn-success,
+        .btn-danger {
+            border-radius: 5px;
+        }
+
         @media only screen and (min-width: 992px) {
             .navbar {
-                background: rgba(255, 255, 255, 0.8);
+                background: rgba(255, 255, 255, 0.6);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
                 border-radius: 30px;
                 padding: 0.5rem 1rem;
                 width: fit-content;
@@ -82,20 +158,30 @@
                 top: 0.5rem;
                 height: 50px;
             }
+
             .list {
                 padding-top: 50px;
             }
         }
-        .btn1{
-            background-color: darkblue;
+
+        .btn1 {
+            background-color: darkgreen;
         }
-        .btn2{
-            background-color: darkred;
+
+        .btn2 {
+            background-color: rgb(194, 23, 23);
             margin-bottom: 1rem;
         }
-        .btn3{
+
+        .btn3 {
             background-color: darkgreen;
             margin-bottom: 1rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-group-custom {
+            display: flex;
+            justify-content: space-between;
         }
     </style>
 </head>
@@ -103,14 +189,16 @@
 <body class="body">
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
-            <button class="navbar-toggler ml-auto" style="border: 0cm;" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
-                aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler ml-auto" style="border: 0cm;" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="fas fa-bars"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" href="index.html">Todo List</a>
+                        <a class="nav-link active" href="index.html">To-Do</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index3.html">Books</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="index1.html">Calendar</a>
@@ -118,36 +206,49 @@
                     <li class="nav-item">
                         <a class="nav-link" href="index2.html">Timer</a>
                     </li>
-                </ul>  
+                    <li class="nav-item">
+                        <a class="nav-link" href="index4.html">Gallery</a>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
 
     <div class="list container mt-5">
-        <h1 class="text-center txt">Todo List</h1>
-        <div class="row">
+        <h1 class="text-center txt">To-Do List</h1>
+
+        <!-- Glass Effect Div with Input and Task List -->
+        <div class="row mt-3">
             <div class="col-md-8 offset-md-2">
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="taskInput" placeholder="Enter a new task" aria-label="New task">
-                    <div class="input-group-append">
-                        <button class="btn btn1 btn-primary" id="addTaskButton" aria-label="Add task">Add Task</button>
+                <div class="glass-effect">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="taskInput" placeholder="Enter a new task" aria-label="New task">
+                        <div class="input-group-append">
+                            <button class="btn btn1 btn-success" id="addTaskButton" aria-label="Add task">Add Task</button>
+                        </div>
+                    </div>
+                    <h3 class="text-center txt" id="listTitle"></h3>
+                    <ul class="list-group" id="taskList" role="list"></ul>
+                    <div class="btn-group-custom mt-3">
+                        <button class="btn btn2 btn-danger" id="resetButton" aria-label="Reset all tasks">Reset All Tasks</button>
+                        <button class="btn btn3 btn-success" id="toggleButton" aria-label="Switch List">Switch to List 2</button>
                     </div>
                 </div>
-                <ul class="list-group" id="taskList" role="list"></ul>
-                <button class="btn btn2 btn-danger mt-3" id="resetButton" aria-label="Reset all tasks">Reset All Tasks</button>
-                <button class="btn btn3 btn-success mt-3" id="saveButton" aria-label="Save all tasks">Save Tasks</button>
             </div>
         </div>
     </div>
 
     <!-- jQuery and Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
-        function loadTasks() {
-            const savedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
+        let currentList = 'tasks-taskList1'; // Default to List 1
+
+        // Function to load tasks from local storage
+        function loadTasks(storageKey) {
+            const savedTasks = JSON.parse(localStorage.getItem(storageKey)) || [];
             const taskList = document.getElementById('taskList');
             taskList.innerHTML = '';
 
@@ -157,25 +258,28 @@
             });
         }
 
-        function saveTasks() {
+        // Function to save tasks to local storage
+        function saveTasks(storageKey) {
             const taskList = document.getElementById('taskList');
             const tasks = [];
             taskList.querySelectorAll('li').forEach(listItem => {
                 const taskText = listItem.querySelector('span').textContent;
                 tasks.push(taskText);
             });
-            localStorage.setItem('tasks', JSON.stringify(tasks));
+            localStorage.setItem(storageKey, JSON.stringify(tasks));
         }
 
+        // Function to create a task element
         function createTaskElement(taskText) {
             const listItem = document.createElement('li');
-            listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+            listItem.className = 'list-group-item glass-effect d-flex justify-content-between align-items-center';
             listItem.setAttribute('role', 'listitem');
+            listItem.draggable = true; // Make list items draggable
             listItem.innerHTML = `
                 <span>${taskText}</span>
-                <div>
-                    <button class="btn btn-success btn-sm ml-2 completeButton" aria-label="Complete task">Complete</button>
-                    <button class="btn btn-danger btn-sm ml-2 removeButton" aria-label="Remove task">Remove</button>
+                <div class="btn-group ml-2">
+                    <button class="btn btn-success btn-sm completeButton" aria-label="Complete task">Complete</button>
+                    <button class="btn btn-danger btn-sm removeButton" aria-label="Remove task">Remove</button>
                 </div>
             `;
 
@@ -183,22 +287,59 @@
             const completeButton = listItem.querySelector('.completeButton');
             completeButton.addEventListener('click', function () {
                 listItem.querySelector('span').classList.toggle('completed');
+                saveTasks(currentList);
             });
 
             // Add event listener to remove button
             const removeButton = listItem.querySelector('.removeButton');
             removeButton.addEventListener('click', function () {
                 listItem.remove();
-                saveTasks(); // Save tasks after removing
+                saveTasks(currentList);
+            });
+
+            // Add drag events
+            listItem.addEventListener('dragstart', (e) => {
+                e.dataTransfer.setData('text/plain', taskText);
+                e.dataTransfer.setData('text/html', listItem.outerHTML);
+                listItem.classList.add('dragging');
+            });
+
+            listItem.addEventListener('dragend', () => {
+                listItem.classList.remove('dragging');
+                saveTasks(currentList);
+            });
+
+            document.getElementById('taskList').addEventListener('dragover', (e) => {
+                e.preventDefault();
+                const draggingItem = document.querySelector('.dragging');
+                const afterElement = getDragAfterElement(e.clientY);
+                if (afterElement == null) {
+                    document.getElementById('taskList').appendChild(draggingItem);
+                } else {
+                    document.getElementById('taskList').insertBefore(draggingItem, afterElement);
+                }
             });
 
             return listItem;
         }
 
-        // Function to add a new task
-        function addTask() {
+        // Function to get the element after which the dragging item should be placed
+        function getDragAfterElement(y) {
+            const draggableElements = [...document.querySelectorAll('#taskList .list-group-item:not(.dragging)')];
+            return draggableElements.reduce((closest, child) => {
+                const box = child.getBoundingClientRect();
+                const offset = y - box.top - box.height / 2;
+                if (offset < 0 && offset > closest.offset) {
+                    return { offset: offset, element: child };
+                } else {
+                    return closest;
+                }
+            }, { offset: Number.NEGATIVE_INFINITY }).element;
+        }
+
+        // Function to add a new task to the current list
+        function addTaskToList() {
             const taskInput = document.getElementById('taskInput');
-            const taskList = document.getElementById('taskList');
             const taskText = taskInput.value.trim();
 
             if (taskText === '') {
@@ -208,39 +349,48 @@
             taskInput.classList.remove('is-invalid');
 
             const listItem = createTaskElement(taskText);
-            taskList.appendChild(listItem);
+            document.getElementById('taskList').appendChild(listItem);
             taskInput.value = '';
+
+            saveTasks(currentList);
         }
 
-        // Event listener for the add task button
-        document.getElementById('addTaskButton').addEventListener('click', addTask);
+        // Toggle between List 1 and List 2
+        document.getElementById('toggleButton').addEventListener('click', function () {
+            if (currentList === 'tasks-taskList1') {
+                currentList = 'tasks-taskList2';
+                document.getElementById('listTitle').textContent = '';
+                this.textContent = 'Switch to List 1';
+            } else {
+                currentList = 'tasks-taskList1';
+                document.getElementById('listTitle').textContent = '';
+                this.textContent = 'Switch to List 2';
+            }
+            loadTasks(currentList);
+        });
 
-        // Event listener for the reset button
+        // Reset the current list
         document.getElementById('resetButton').addEventListener('click', function () {
             document.getElementById('taskList').innerHTML = '';
-            saveTasks(); // Save tasks after resetting
+            saveTasks(currentList);
         });
 
-        // Event listener for the save button
-        document.getElementById('saveButton').addEventListener('click', saveTasks);
+        // Event listener for adding tasks
+        document.getElementById('addTaskButton').addEventListener('click', addTaskToList);
 
-        // Event listener for Enter key to add task
+        // Event listener for Enter key to add tasks
         document.getElementById('taskInput').addEventListener('keypress', function (event) {
             if (event.key === 'Enter') {
-                addTask();
-            }
-        });
-
-        // Function to set the active class to the current navbar link
-        document.querySelectorAll('.nav-link').forEach(link => {
-            if (link.href === window.location.href) {
-                link.classList.add('active');
+                addTaskToList();
             }
         });
 
         // Load tasks from local storage on page load
-        window.onload = loadTasks;
+        window.onload = function () {
+            loadTasks(currentList);
+        };
     </script>
 </body>
 
 </html>
+
