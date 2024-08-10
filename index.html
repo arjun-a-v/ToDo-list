@@ -181,10 +181,22 @@
             color: white;
         }
 
-      
         .btn-group-custom {
             display: flex;
             justify-content: space-between;
+        }
+
+        .task-editable {
+            display: none;
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 5px;
+            padding: 5px;
+            margin-right: 10px;
+        }
+
+        .task-editable:focus {
+            outline: none;
         }
     </style>
 </head>
@@ -281,6 +293,7 @@
             listItem.draggable = true; // Make list items draggable
             listItem.innerHTML = `
                 <span ${completed ? 'class="completed"' : ''}>${taskText}</span>
+                <input type="text" class="task-editable" value="${taskText}" aria-label="Edit task">
                 <div class="btn-group ml-2">
                     <button class="btn btn-success btn-sm completeButton" aria-label="Complete task">Complete</button>
                     <button class="btn btn-danger btn-sm removeButton" aria-label="Remove task">Remove</button>
@@ -299,6 +312,27 @@
             removeButton.addEventListener('click', function () {
                 listItem.remove();
                 saveTasks(currentList);
+            });
+
+            // Add double-click event to edit task
+            listItem.addEventListener('dblclick', function () {
+                const span = listItem.querySelector('span');
+                const input = listItem.querySelector('.task-editable');
+                span.style.display = 'none';
+                input.style.display = 'block';
+                input.focus();
+            });
+
+            // Add event listener to input field to save changes
+            const input = listItem.querySelector('.task-editable');
+            input.addEventListener('blur', function () {
+                const span = listItem.querySelector('span');
+                if (input.value.trim() !== '') {
+                    span.textContent = input.value;
+                    saveTasks(currentList);
+                }
+                span.style.display = 'block';
+                input.style.display = 'none';
             });
 
             // Add drag events
